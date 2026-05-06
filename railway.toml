@@ -1,0 +1,16 @@
+# Railway deployment configuration for Nexus Study backend
+# https://docs.railway.app/reference/config-as-code
+
+[build]
+builder = "nixpacks"
+buildCommand = "npm ci && npx prisma generate && npx prisma migrate deploy"
+
+[deploy]
+startCommand = "npm start"
+restartPolicyType = "on-failure"
+restartPolicyMaxRetries = 3
+healthcheckPath = "/api/health"
+healthcheckTimeout = 30
+
+[[services]]
+name = "nexus-study-backend"
